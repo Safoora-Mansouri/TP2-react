@@ -1,18 +1,40 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { products } from "../data";
 
-function CreateEditProduct({createItem}) {
+function CreateEditProduct({createItem, editItem}) {
 const [productInfo, setProductInfo] = useState({
   nom: "",
   description: "",
   prix: "",
   catégorie:""
 });
+ const navigator= useNavigate();
+const {id}= useParams();
+
+useEffect(() => {
+
+ //edit mode
+ if (id) {
+    const item=products.find(item => item.id == id)
+    setProductInfo(item);
+ }
+},[])
+
+
 
 const onSubmit= (e)=>{
     e.preventDefault();
-    console.log(productInfo);
-     const id= Math.floor(Math.random() * 1000);
-     createItem();
+ 
+    if (id) {
+       editItem(productInfo);
+    }else{
+       const id = Math.floor(Math.random() * 1000);
+       createItem(productInfo);
+      
+    }
+     navigator("/produits");
+    
 }
 
   return (
@@ -62,6 +84,7 @@ const onSubmit= (e)=>{
         </div>
         <input type="submit" className="btn btn-primary" value="Save Task" />
       </form>
+      <Link to="/produits">Go back</Link>
     </div>
   );
 }

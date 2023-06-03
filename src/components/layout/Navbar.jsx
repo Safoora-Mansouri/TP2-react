@@ -5,7 +5,7 @@ const Navbar = () => {
   const [activeLink, setActiveLink] = useState(false)
   return (
     <>
-      <header class="d-flex justify-content-center py-3 bg-dark">
+      <header className="d-flex justify-content-center py-3 bg-dark">
         <nav className="nav nav-pills">
           <Link
             to="/"
