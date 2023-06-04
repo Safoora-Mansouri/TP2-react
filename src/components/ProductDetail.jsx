@@ -17,20 +17,20 @@ const ProductDetail = ({fetchProduct}) => {
         getProduct();
      },[]);
 
-     
+
   return  (
-  <div className="col">
-    <img src={image} alt="" />
-    <div className="card-header py-3 text-bg-primary border-primary">
-      <h4 className="my-0 fw-normal">
+  <div className="col text-center">
+    <img src={image} alt="" width="300" />
+    <div className=" py-3  border-primary">
+      <h1 className="my-0 fw-normal">
         {nom ? nom.split(" ").slice(0, 5).join(" "): ""}
-      </h4>
+      </h1>
     </div>
     <div className="card-body">
-      <h1 className="card-title pricing-card-title">
+      <h3 className="card-title pricing-card-title">
         ${prix}
         <small className="text-body-secondary fw-light">/mo</small>
-      </h1>
+      </h3>
       <p>{description ? description.split(" ").slice(0, 20).join(" "): ""}</p>
       <h4>{catégorie}</h4>
     </div>

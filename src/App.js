@@ -10,25 +10,18 @@ import CreateEditProduct from "./components/CreateEditProduct";
 import { products } from "./data";
 import { useState, useEffect } from "react";
 
-
 function App() {
   const [productsList, setProductsList] = useState([]);
 
- useEffect(()=>{
-  const getProducts = async ()=> {
-     const products = await fetch("https://fakestoreapi.com/products");
-    createItem(products);
-  }
- })
-  ////////////////////////////////////////////////////////////
+  
   useEffect(() => {
-  const getProducts = async () => {
-    const productsFromServer = await fetchProducts();
-    if (Array.isArray(productsFromServer)) {
-      setProductsList(productsFromServer);
+    const getProducts = async () => {
+      const productsFromServer = await fetchProducts();
+      if (Array.isArray(productsFromServer)) {
+        setProductsList(productsFromServer);
+      }
     }
-  };
-    getProducts();
+    getProducts()
   }, []);
 
   ///////////////////////////////////////////////////////////
@@ -38,7 +31,7 @@ function App() {
     const data = await res.json();
     return data;
   };
-////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////
 
   const fetchProduct = async (id) => {
     const res = await fetch(`http://localhost:5000/products/${id}`);
@@ -55,11 +48,11 @@ function App() {
 
   //////////////////////////////////////////////////////////////
 
-  const createItem = async (item) => {
+  const createItem = async (data) => {
     const res = await fetch(`http://localhost:5000/products`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(item),
+      body: JSON.stringify(data),
     });
 
     const newItem = await res.json();
@@ -78,7 +71,7 @@ function App() {
     });
     const editedItem = await res.json();
     ////////////////////////////////////////////////////////////////
-    
+
     setProductsList(
       productsList.map((product) => (product.id === id ? editedItem : product))
     );
@@ -108,9 +101,12 @@ function App() {
             <Products productsList={productsList} deleteItem={deleteItem} />
           }
         />
-        <Route path="/products-detaile/:id" element={<ProductDetail fetchProduct={fetchProduct} />} />
+        <Route
+          path="/products-detaile/:id"
+          element={<ProductDetail fetchProduct={fetchProduct} />}
+        />
       </Routes>
-      
+
       <Footer />
     </BrowserRouter>
   );

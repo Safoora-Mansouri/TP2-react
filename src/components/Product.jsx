@@ -12,8 +12,8 @@ const Product = ({ id, nom, description, catégorie, prix, deleteItem , editItem
       >
         <div className="card-header py-3 text-bg-primary border-primary">
           <Link to={"/products-detaile/"+id}>
-            <h4 className="my-0 fw-normal">
-              {nom.split(" ").slice(0, 5).join(" ")}
+            <h4 className="my-0 fw-normal text-white">
+              {nom? nom.split(" ").slice(0, 5).join(" "):""}
             </h4>
           </Link>
         </div>
@@ -22,7 +22,7 @@ const Product = ({ id, nom, description, catégorie, prix, deleteItem , editItem
             ${prix}
             <small className="text-body-secondary fw-light">/mo</small>
           </h1>
-          <p>{description.split(" ").slice(0, 20).join(" ")}</p>
+          <p>{ description? description.split(" ").slice(0, 20).join(" "):""}</p>
           <h4>{catégorie}</h4>
         </div>
         <div className="card-footer">
