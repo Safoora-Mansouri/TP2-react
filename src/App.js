@@ -3,15 +3,23 @@ import Home from "./components/Home";
 import Products from "./components/Products";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
+import ProductDetail from "./components/ProductDetail";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import CreateEditProduct from "./components/CreateEditProduct";
 import { products } from "./data";
 import { useState, useEffect } from "react";
 
+
 function App() {
   const [productsList, setProductsList] = useState([]);
 
+ useEffect(()=>{
+  const getProducts = async ()=> {
+     const products = await fetch("https://fakestoreapi.com/products");
+    createItem(products);
+  }
+ })
   ////////////////////////////////////////////////////////////
   useEffect(() => {
   const getProducts = async () => {
@@ -63,22 +71,16 @@ function App() {
 
   const editItem = async (item) => {
     const id = item.id;
-    const updProduct = { ...item };
-
     const res = await fetch(`http://localhost:5000/products/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(updProduct),
+      body: JSON.stringify(item),
     });
-
-    const data = await res.json();
-
+    const editedItem = await res.json();
     ////////////////////////////////////////////////////////////////
     
     setProductsList(
-      productsList.map((product) =>
-        product.id === id ? { ...product, reminder: data.reminder } : product
-      )
+      productsList.map((product) => (product.id === id ? editedItem : product))
     );
   };
 
@@ -93,7 +95,12 @@ function App() {
         />
         <Route
           path="/add-product/:id"
-          element={<CreateEditProduct editItem={editItem} />}
+          element={
+            <CreateEditProduct
+              fetchProduct={fetchProduct}
+              editItem={editItem}
+            />
+          }
         />
         <Route
           path="/produits"
@@ -101,7 +108,9 @@ function App() {
             <Products productsList={productsList} deleteItem={deleteItem} />
           }
         />
+        <Route path="/products-detaile/:id" element={<ProductDetail fetchProduct={fetchProduct} />} />
       </Routes>
+      
       <Footer />
     </BrowserRouter>
   );
