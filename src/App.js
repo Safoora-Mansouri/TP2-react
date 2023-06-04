@@ -7,29 +7,81 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import CreateEditProduct from "./components/CreateEditProduct";
 import { products } from "./data";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
-  const [productsList, setProductsList] = useState(products);
+  const [productsList, setProductsList] = useState([]);
 
-  const deleteItem = (id) => {
-    const newProductList = productsList.filter((item) => item.id !== id);
-    setProductsList(newProductList);
+  ////////////////////////////////////////////////////////////
+  useEffect(() => {
+  const getProducts = async () => {
+    const productsFromServer = await fetchProducts();
+    if (Array.isArray(productsFromServer)) {
+      setProductsList(productsFromServer);
+    }
   };
-  const createItem = (item) => {
-    setProductsList([ item,...productsList]);
+    getProducts();
+  }, []);
+
+  ///////////////////////////////////////////////////////////
+
+  const fetchProducts = async () => {
+    const res = await fetch("http://localhost:5000/products");
+    const data = await res.json();
+    return data;
+  };
+////////////////////////////////////////////////////////////
+
+  const fetchProduct = async (id) => {
+    const res = await fetch(`http://localhost:5000/products/${id}`);
+    const data = await res.json();
+    return data;
   };
 
-  const editItem = (item) => {
-    const newProductList = productsList.map((prd) => {
-      if (prd.id == item.id) {
-        return item;
-      }
-      return prd;
+  ///////////////////////////////////////////////////////////
+
+  const deleteItem = async (id) => {
+    await fetch(`http://localhost:5000/products/${id}`, { method: "DELETE" });
+    setProductsList(productsList.filter((item) => item.id !== id));
+  };
+
+  //////////////////////////////////////////////////////////////
+
+  const createItem = async (item) => {
+    const res = await fetch(`http://localhost:5000/products`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(item),
     });
-    setProductsList(newProductList);
-    console.log(newProductList);
+
+    const newItem = await res.json();
+
+    setProductsList([newItem, ...productsList]);
   };
+
+  ///////////////////////////////////////////////////////////////////
+
+  const editItem = async (item) => {
+    const id = item.id;
+    const updProduct = { ...item };
+
+    const res = await fetch(`http://localhost:5000/products/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updProduct),
+    });
+
+    const data = await res.json();
+
+    ////////////////////////////////////////////////////////////////
+    
+    setProductsList(
+      productsList.map((product) =>
+        product.id === id ? { ...product, reminder: data.reminder } : product
+      )
+    );
+  };
+
   return (
     <BrowserRouter>
       <Navbar />

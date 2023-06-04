@@ -12,8 +12,8 @@ export const products = [
     catégorie: "men's clothing",
     image: "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
     rating: {
-      rate: 3.4,
-      count: 200,
+    rate: 3.4,
+    count: 200,
     },
   },
   {
@@ -104,8 +104,8 @@ export const products = [
     catégorie: "jewelery",
     image: "https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg",
     rating: {
-      rate: 1.9,
-      count: 100,
+    rate: 1.9,
+    count: 100,
     },
   },
   {
