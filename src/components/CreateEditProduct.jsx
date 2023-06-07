@@ -1,92 +1,122 @@
-import React, { useEffect, useState } from 'react'
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { products } from "../data";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
-function CreateEditProduct({createItem, editItem}) {
-const [productInfo, setProductInfo] = useState({
-  nom: "",
-  description: "",
-  prix: "",
-  catégorie:""
-});
- const navigator= useNavigate();
-const {id}= useParams();
+////////////////////////////////////////////////////////////////////////////////
 
-useEffect(() => {
+function CreateEditProduct({ createItem, editItem, productsList }) {
+  const [productInfo, setProductInfo] = useState({
+    nom: "",
+    description: "",
+    prix: "",
+    catégorie: "",
+  });
+  ///////////////////////////////////////////////////////////////////////////
 
- //edit mode
- if (id) {
-    const item=products.find(item => item.id == id)
-    setProductInfo(item);
- }
-},[])
+  const navigator = useNavigate();
 
+  ///////////////////////////////////////////////////////////////////////
 
+  let { id } = useParams();
 
-const onSubmit= (e)=>{
-    e.preventDefault();
- 
+  /////////////////////////////////////////////////////////////////////
+
+  useEffect(() => {
+    //edit mode
     if (id) {
-       editItem(productInfo);
-    }else{
-       const id = Math.floor(Math.random() * 1000);
-       createItem(productInfo);
-      
+      const item = productsList.find((item) => item.id == id);
+      setProductInfo(item);
     }
-     navigator("/produits");
-    
-}
+  }, []);
 
+  ////////////////////////////////////////////////////////////////////////
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    if (id) {
+       productInfo.id = id;
+      editItem(productInfo);
+    } else {
+      // id=new Date.now();
+       id = Math.floor(Math.random() * 1000)+21;
+      productInfo.id = id;
+      createItem(productInfo);
+    }
+
+    /////////////////////////////////////////////////////////////////
+    navigator("/produits");
+  };
   return (
-    <div>
-      <form className="add-form" onSubmit={onSubmit}>
-        <div className="form-control">
-          <label>Nom</label>
-          <input
-            type="text"
-            placeholder="Add Task"
-            value={productInfo.nom}
-            onChange={(e) =>
-              setProductInfo({ ...productInfo, nom: e.target.value })
-            }
-          />
+    <div className="d-flex flex-column justify-content-center align-items-center vh-100">
+      <h2 className="text-center mb-4">Add Product</h2>
+      <div className="col-lg-4">
+        <form className="add-form shadow p-4 mt-4" onSubmit={onSubmit}>
+          <div className="form-group">
+            <label htmlFor="nom" className="text-center">
+              Nom
+            </label>
+            <input
+              id="nom"
+              type="text"
+              className="form-control"
+              placeholder="Add Task"
+              value={productInfo.nom}
+              onChange={(e) =>
+                setProductInfo({ ...productInfo, nom: e.target.value })
+              }
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="description" className="text-center">
+              Description
+            </label>
+            <input
+              id="description"
+              type="text"
+              className="form-control"
+              placeholder="Add Day & Time"
+              value={productInfo.description}
+              onChange={(e) =>
+                setProductInfo({ ...productInfo, description: e.target.value })
+              }
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="prix" className="text-center">
+              Prix
+            </label>
+            <input
+              id="prix"
+              type="text"
+              className="form-control"
+              value={productInfo.prix}
+              onChange={(e) =>
+                setProductInfo({ ...productInfo, prix: e.target.value })
+              }
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="categorie" className="text-center">
+              Catégorie
+            </label>
+            <input
+              id="categorie"
+              type="text"
+              className="form-control"
+              value={productInfo.catégorie}
+              onChange={(e) =>
+                setProductInfo({ ...productInfo, catégorie: e.target.value })
+              }
+            />
+          </div>
+          <input type="submit" className="btn btn-primary" value="Save Task" />
+        </form>
+        <div className="text-center mt-3">
+          <Link to="/produits">Go back</Link>
         </div>
-        <div className="form-control">
-          <label>Description</label>
-          <input
-            type="text"
-            placeholder="Add Day & Time"
-            value={productInfo.description}
-            onChange={(e) =>
-              setProductInfo({ ...productInfo, description: e.target.value })
-            }
-          />
-        </div>
-        <div className="form-control form-control-check">
-          <label>Prix</label>
-          <input
-            type="text"
-            value={productInfo.prix}
-            onChange={(e) =>
-              setProductInfo({ ...productInfo, prix: e.target.value })
-            }
-          />
-        </div>
-        <div className="form-control form-control-check">
-          <label>Catégorie</label>
-          <input
-            type="text"
-            value={productInfo.catégorie}
-            onChange={(e) =>
-              setProductInfo({ ...productInfo, catégorie: e.target.value })
-            }
-          />
-        </div>
-        <input type="submit" className="btn btn-primary" value="Save Task" />
-      </form>
-      <Link to="/produits">Go back</Link>
+      </div>
     </div>
   );
 }
 
-export default CreateEditProduct
+export default CreateEditProduct;

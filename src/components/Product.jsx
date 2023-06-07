@@ -2,7 +2,7 @@ import React from 'react'
 import { MdDelete, MdEdit } from "react-icons/md";
 import { Link } from 'react-router-dom';
 
-const Product = ({ id, nom, description, catégorie, prix, deleteItem , editItem}) => {
+const Product = ({ id, nom, description, catégorie, prix, deleteItem }) => {
   return (
     <div className="col">
       <div
@@ -10,9 +10,12 @@ const Product = ({ id, nom, description, catégorie, prix, deleteItem , editItem
         id={id}
       >
         <div className="card-header py-3 text-bg-primary border-primary">
-          <h4 className="my-0 fw-normal">
-            {nom.split(" ").slice(0, 5).join(" ")}
-          </h4>
+          {/* <Link to={"/products-detaile/"+id}> */}
+          <Link to={`/products-detaile/${id}`}>
+            <h4 className="my-0 fw-normal text-white">
+              {nom.split(" ").slice(0, 5).join(" ")}
+            </h4>
+          </Link>
         </div>
         <div className="card-body">
           <h1 className="card-title pricing-card-title">
@@ -31,13 +34,11 @@ const Product = ({ id, nom, description, catégorie, prix, deleteItem , editItem
             <MdDelete />
           </button>
 
-
           <Link
             to={`/add-product/${id}`}
             type="button"
             className=" btn btn-warning text-white rounded rounded-circle ms-3 action-icon"
           >
-            
             <MdEdit />
           </Link>
         </div>

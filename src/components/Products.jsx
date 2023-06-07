@@ -8,7 +8,8 @@ const Products = ({productsList, deleteItem}) => {
 
   return (
     <div className="container my-5">
-      <Link to="/add-product"
+      <Link
+        to="/add-product"
         type="button"
         className="btn btn-success text-white rounded rounded-circle action-icon"
       >
@@ -17,7 +18,7 @@ const Products = ({productsList, deleteItem}) => {
 
       <section className="row row-cols-1 row-cols-md-3 mb-3 text-center">
         {productsList.map((item) => (
-          <Product key={item.id} {...item} deleteItem={deleteItem}  />
+          <Product key={item.id} {...item} deleteItem={deleteItem} />
         ))}
       </section>
     </div>

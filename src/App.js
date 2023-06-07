@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./components/Home";
+import ProductDetail from "./components/ProductDetail";
 import Products from "./components/Products";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
@@ -28,8 +29,17 @@ function App() {
       return prd;
     });
     setProductsList(newProductList);
-    console.log(newProductList);
+   
   };
+  ////////////////////////////////////////////////////////
+  
+    const Product =  (id) => {
+      const newProductList = productsList.filter((item) => item.id === id);
+      setProductsList(newProductList);
+    };
+   
+
+  /////////////////////////////////////////////////////////
   return (
     <BrowserRouter>
       <Navbar />
@@ -41,7 +51,12 @@ function App() {
         />
         <Route
           path="/add-product/:id"
-          element={<CreateEditProduct editItem={editItem} />}
+          element={
+            <CreateEditProduct
+              editItem={editItem}
+              productsList={productsList}
+            />
+          }
         />
         <Route
           path="/produits"
@@ -49,7 +64,13 @@ function App() {
             <Products productsList={productsList} deleteItem={deleteItem} />
           }
         />
+
+        <Route
+          path="/products-detaile/:id"
+          element={<ProductDetail productsList={productsList} />}
+        />
       </Routes>
+
       <Footer />
     </BrowserRouter>
   );
