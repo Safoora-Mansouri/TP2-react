@@ -30,8 +30,9 @@ function CreateEditProduct({ createItem, editItem, fetchProduct }) {
     if (id) {
       editItem(productInfo);
     } else {
-      const id = Math.floor(Math.random() * 1000);
-      createItem(productInfo);
+      const idPhoto= Math.floor(Math.random()*1000);
+      productInfo.image = `https://picsum.photos/id/${idPhoto}/300/300`;
+      createItem(productInfo)
     }
     navigator("/produits");
   };

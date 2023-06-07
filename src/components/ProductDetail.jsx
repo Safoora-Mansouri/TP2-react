@@ -8,6 +8,7 @@ const ProductDetail = ({fetchProduct}) => {
     const {nom, description, catégorie, prix, image}=product
 
      const { id } = useParams();
+     
      useEffect(()=>{
         const getProduct = async ()=>{
             const data = await fetchProduct(id);

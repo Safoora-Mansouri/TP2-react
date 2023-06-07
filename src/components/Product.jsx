@@ -20,7 +20,6 @@ const Product = ({ id, nom, description, catégorie, prix, deleteItem , editItem
         <div className="card-body">
           <h1 className="card-title pricing-card-title">
             ${prix}
-            <small className="text-body-secondary fw-light">/mo</small>
           </h1>
           <p>{ description? description.split(" ").slice(0, 20).join(" "):""}</p>
           <h4>{catégorie}</h4>
