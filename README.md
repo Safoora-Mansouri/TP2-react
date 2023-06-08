@@ -1,3 +1,72 @@
+
+Description:
+In this React project, you have three pages: "Accueil," "Product,"
+and "Detail." The "Accueil" page serves as the homepage of
+your application. The "Product" page displays a list of all the
+products available. Each product is shown with its title, description, price,
+and category. On this page, you have the option to perform different actions on
+each product, such as editing, creating, or deleting. In the first scenario,
+when you update the page, the data reverts back to its original format. This
+means that any changes made to the product information, such as title,
+description, price, or category, will not be saved when you refresh the page.
+The data returns to its original state as if no changes were made. However, in
+the second scenario, the data remains with the changes you have made. This
+implies that any modifications you perform on the product information, such as
+updating the title, description, price, or category, will persist even if you
+refresh the page or navigate away. The data retains the altered state. On the
+"Product" page, if you click on the title of a specific product, it
+will take you to the "Detail" page. Here, you can view more detailed
+information about the product, including a picture and additional details. For
+newly added products, since you mentioned that you consider a random picture,
+it means that when creating a new product, the application automatically
+generates or assigns a random picture for that product. This ensures that even
+if you haven't provided a specific picture, the newly added product still has an
+image associated with it. The project also includes a routing system, which
+allows you to navigate between different pages seamlessly. You can move from
+the "Accueil" page to the "Product" page and then to the
+"Detail" page by following the appropriate links or using the
+navigation provided. Additionally, there is a "Go Back" button
+implemented in the project. This button allows you to return to the previous
+page or step in your navigation history. It helps provide a smooth user
+experience by allowing users to easily backtrack or navigate to their previous
+location within the application.
+
+Commandes:
+Create a React.js project using the React CLI
+1.npx create-react-app TP2-react
+Change into the project directory:
+ 2.cd TP2-react
+ For handling routing, you can use react-router-dom:
+3. npm install react-router-dom
+4. npm install bootstrap
+//second senario
+Create a products.json file in the root directory of my project.
+Populate the products.json file with some initial product data. 
+Install json-server globally:
+6.npm i -g server
+Start the JSON server
+using the products.json file:
+7. json-server --watch products.json --port 5000
+8.npm start
+9.npm run server
+10.npm run build
+11.npx serve -s build -p 8080(for example)
+10.npm run build
+11.npm i json-server
+add in package.json
+"homepage" : "https://e2296145.webdev.cmaisonneuve.qc.ca/build"
+12.npm run build
+ 
+
+GitHub: https://github.com/Safoora-Mansouri/TP2-react.git
+(in main branch i have senario1 and in branch senario2 , I have senario2)
+
+WebDev: https://e2296145.webdev.cmaisonneuve.qc.ca/build/
+(maybee it does not work so i send a video)
+refrence:https://fakestoreapi.com/products
+
+
+--------------------------------------------------------------------------------------------------------------
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -26,7 +26,7 @@ function CreateEditProduct({ createItem, editItem, productsList }) {
       const item = productsList.find((item) => item.id == id);
       setProductInfo(item);
     }
-  }, []);
+  }, []); 
 
   ////////////////////////////////////////////////////////////////////////
 
