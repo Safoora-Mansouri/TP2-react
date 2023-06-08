@@ -13,15 +13,14 @@ import { useState, useEffect } from "react";
 function App() {
   const [productsList, setProductsList] = useState([]);
 
-  
   useEffect(() => {
     const getProducts = async () => {
       const productsFromServer = await fetchProducts();
       if (Array.isArray(productsFromServer)) {
         setProductsList(productsFromServer);
       }
-    }
-    getProducts()
+    };
+    getProducts();
   }, []);
 
   ///////////////////////////////////////////////////////////
@@ -70,13 +69,12 @@ function App() {
       body: JSON.stringify(item),
     });
     const editedItem = await res.json();
-    ////////////////////////////////////////////////////////////////
 
     setProductsList(
       productsList.map((product) => (product.id === id ? editedItem : product))
     );
   };
-
+  ///////////////////////////////////////////////////////////////////
   return (
     <BrowserRouter>
       <Navbar />
